@@ -29,6 +29,71 @@
   *,*::before,*::after{box-sizing:border-box}
   html{scroll-padding-top:env(safe-area-inset-top,0px)}
   html,body{margin:0}
+
+  /* Early Bird promotional banner across the very top */
+  .promo-banner{
+    position:relative;z-index:5;
+    background:linear-gradient(90deg,
+      rgba(107,13,24,.95) 0%,
+      rgba(164,22,42,.95) 30%,
+      rgba(217,40,65,.95) 50%,
+      rgba(164,22,42,.95) 70%,
+      rgba(107,13,24,.95) 100%);
+    color:#ffe8ee;
+    border-bottom:1px solid var(--gold);
+    box-shadow:0 4px 18px rgba(0,0,0,.5), inset 0 -1px 0 rgba(244,212,124,.25);
+    padding:12px 20px;
+    animation:banner-shimmer 6s linear infinite;
+    background-size:200% 100%;
+  }
+  @keyframes banner-shimmer{
+    0%{background-position:0% 50%}
+    100%{background-position:200% 50%}
+  }
+  .promo-banner[hidden]{display:none}
+  .pb-inner{
+    max-width:1080px;margin:0 auto;
+    display:flex;align-items:center;justify-content:center;
+    gap:14px;flex-wrap:wrap;
+    font-family:'Inter',sans-serif;font-size:14px;
+    text-align:center;
+  }
+  .pb-badge{
+    display:inline-block;
+    padding:3px 10px;
+    background:linear-gradient(180deg,#f4d47c,#d4a548);
+    color:#2a1a08;font-weight:700;
+    font-family:'Cinzel',serif;font-size:10px;letter-spacing:.24em;
+    border-radius:999px;text-transform:uppercase;
+    box-shadow:0 2px 8px rgba(0,0,0,.4);
+    flex-shrink:0;
+  }
+  .pb-msg{color:#fff;font-weight:500;line-height:1.4}
+  .pb-msg strong{color:#f4d47c;font-weight:700}
+  .pb-cta{
+    display:inline-block;flex-shrink:0;
+    padding:7px 16px;
+    background:#fff;color:#a4162a;
+    font-family:'Cinzel',serif;font-weight:700;font-size:11px;letter-spacing:.22em;
+    text-decoration:none;text-transform:uppercase;
+    border-radius:6px;
+    box-shadow:0 2px 10px rgba(0,0,0,.35);
+    transition:all .15s;
+  }
+  .pb-cta:hover{background:#f4d47c;transform:translateY(-1px)}
+  .promo-banner.urgent{
+    animation:banner-shimmer 3s linear infinite, banner-urgent 1.8s ease-in-out infinite;
+  }
+  @keyframes banner-urgent{
+    0%,100%{box-shadow:0 4px 18px rgba(0,0,0,.5), inset 0 -1px 0 rgba(244,212,124,.25), 0 0 0 0 rgba(217,40,65,0)}
+    50%{box-shadow:0 4px 30px rgba(217,40,65,.5), inset 0 -1px 0 rgba(244,212,124,.4), 0 0 25px rgba(217,40,65,.35)}
+  }
+
+  @media(max-width:600px){
+    .pb-inner{gap:8px;font-size:12px}
+    .pb-badge{font-size:9px;padding:2px 8px}
+    .pb-cta{padding:6px 12px;font-size:10px}
+  }
   body{
     font-family:'Inter',system-ui,-apple-system,sans-serif;
     color:var(--cream);
@@ -105,6 +170,27 @@
       0 0 20px rgba(230,65,96,.55),
       0 4px 0 #6b0d18,
       0 8px 24px rgba(0,0,0,.6);
+    animation:gala-flash 1.8s ease-in-out infinite;
+  }
+  @keyframes gala-flash{
+    0%, 100%{
+      color:#e64160;
+      text-shadow:
+        0 0 20px rgba(230,65,96,.55),
+        0 4px 0 #6b0d18,
+        0 8px 24px rgba(0,0,0,.6);
+    }
+    50%{
+      color:#ff5f7e;
+      text-shadow:
+        0 0 35px rgba(255,95,126,.95),
+        0 0 55px rgba(230,65,96,.7),
+        0 4px 0 #6b0d18,
+        0 8px 28px rgba(0,0,0,.7);
+    }
+  }
+  @media(prefers-reduced-motion:reduce){
+    .title{animation:none}
   }
   .subtitle{
     font-family:'Cinzel',serif;
@@ -1011,6 +1097,17 @@
 </head>
 <body>
 
+<!-- ═══════════════════════════════════════════════════════════════
+     Early Bird promo banner — shown only while Early Bird tier active
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="promo-banner" id="promo-banner" role="region" aria-label="Early Bird promotion" hidden>
+  <div class="pb-inner">
+    <span class="pb-badge">✦ Limited Time</span>
+    <span class="pb-msg" id="pb-msg">Early Bird pricing — save $50</span>
+    <a class="pb-cta" href="#form" onclick="scrollToForm(event)">Get Yours →</a>
+  </div>
+</div>
+
 <header class="header">
   <div class="curtain"></div>
   <div class="header-inner">
@@ -1422,6 +1519,8 @@
     const priceEl = document.getElementById('tier-price');
     const badgeEl = document.getElementById('tier-badge');
     const notice = document.getElementById('pricing-notice');
+    const banner = document.getElementById('promo-banner');
+    const bannerMsg = document.getElementById('pb-msg');
     if(!input || !priceEl || !notice) return;
 
     if(!tier){
@@ -1432,6 +1531,7 @@
       notice.className = 'pricing-notice closed';
       notice.innerHTML = 'Ticket sales are closed';
       document.querySelector('.submit-btn').disabled = true;
+      if(banner) banner.hidden = true;
       return;
     }
 
@@ -1442,7 +1542,7 @@
     badgeEl.textContent = tier.name;
     badgeEl.className = 't-tier-badge tier-' + tier.id;
 
-    // Build the informational notice
+    // Build the informational notice + top banner
     if(tier.id === 'early'){
       const nextTier = PRICING_TIERS.find(t => t.id === 'standard');
       const savings = nextTier.price - tier.price;
@@ -1458,12 +1558,27 @@
           Ends ${dateLabel} · <strong class="pn-days">${daysLeft} day${daysLeft===1?'':'s'} left</strong>
         </span>
       `;
+      if(banner){
+        banner.hidden = false;
+        banner.classList.toggle('urgent', urgent);
+        bannerMsg.innerHTML = urgent
+          ? `Only <strong>${daysLeft} day${daysLeft===1?'':'s'}</strong> left on Early Bird pricing — save <strong>$${savings}</strong> before ${dateLabel}`
+          : `<strong>Early Bird</strong> pricing — save <strong>$${savings}</strong> until ${dateLabel} · <strong>${daysLeft} days left</strong>`;
+      }
     } else {
       notice.className = 'pricing-notice standard';
       notice.innerHTML = `<span class="pn-icon">✦</span> Standard pricing · sales close at the door`;
+      if(banner) banner.hidden = true;
     }
 
     recalc();
+  }
+
+  // Smooth-scroll from banner CTA to the form
+  function scrollToForm(e){
+    e.preventDefault();
+    document.getElementById('form').scrollIntoView({behavior:'smooth', block:'start'});
+    document.getElementById('attendee-name').focus({preventScroll:true});
   }
 
   // ————— Pricing —————
