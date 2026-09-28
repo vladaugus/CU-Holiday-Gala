@@ -539,6 +539,43 @@
     color:var(--gold-bright);
   }
 
+  /* Header countdown — under the attire pill */
+  .header-countdown{
+    margin:22px auto 0;
+    max-width:440px;
+  }
+  .hc-label{
+    font-family:'Cinzel',serif;font-size:10px;letter-spacing:.34em;
+    color:var(--gold);text-transform:uppercase;
+    margin:0 0 10px;text-align:center;
+    opacity:.9;
+  }
+  .hc-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+  }
+  .hc-cell{
+    padding:10px 4px;text-align:center;
+    background:linear-gradient(180deg,rgba(212,165,72,.12),rgba(164,22,42,.08));
+    border:1px solid var(--gold);border-radius:6px;
+    box-shadow:0 4px 16px rgba(0,0,0,.4), inset 0 1px 0 rgba(244,212,124,.1);
+  }
+  .hc-n{
+    font-family:'Cinzel',serif;font-weight:800;font-size:24px;
+    color:var(--gold-bright);line-height:1;
+    text-shadow:0 0 12px rgba(244,212,124,.35);
+    font-variant-numeric:tabular-nums;
+  }
+  .hc-l{
+    font-family:'Cinzel',serif;font-size:8px;letter-spacing:.24em;
+    color:var(--gold);margin-top:5px;text-transform:uppercase;
+  }
+  @media(max-width:440px){
+    .hc-n{font-size:20px}
+    .hc-l{font-size:7px;letter-spacing:.18em}
+    .hc-cell{padding:8px 2px}
+    .hc-grid{gap:5px}
+  }
+
   /* Sync status pill */
   .sync-pill{
     display:inline-block;margin-top:10px;
@@ -765,6 +802,138 @@
 
   .c-actions{display:flex;gap:10px}
 
+  /* ═══════════════════════════════════════════════════════════════
+     Payment confirmation modal
+     ═══════════════════════════════════════════════════════════════ */
+  .pay-overlay{padding:20px 12px}
+  .pay-shell{
+    max-width:520px;width:100%;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(164,22,42,.35), transparent 50%),
+      radial-gradient(circle at 85% 90%, rgba(212,165,72,.25), transparent 55%),
+      linear-gradient(180deg,#150a08,#0a0605);
+    border:1.5px solid var(--gold);
+    border-radius:14px;
+    padding:26px 24px;
+    box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 8px rgba(212,165,72,.06);
+    animation:fadeUp .5s cubic-bezier(.2,.8,.2,1);
+    max-height:calc(100vh - 40px);
+    overflow-y:auto;
+  }
+  .pay-head{text-align:center;margin-bottom:20px}
+  .pm-eyebrow{
+    font-family:'Cinzel',serif;letter-spacing:.34em;font-size:10px;
+    color:var(--gold-bright);font-weight:600;margin:0 0 4px;
+    text-transform:uppercase;
+  }
+  .pm-title{
+    font-family:'Great Vibes',cursive;font-size:44px;line-height:1;
+    color:#e64160;margin:0 0 8px;
+    text-shadow:0 0 15px rgba(230,65,96,.5);
+  }
+  .pm-sub{
+    font-family:'Inter',sans-serif;font-size:13px;color:var(--muted);
+    margin:0;line-height:1.5;
+  }
+
+  /* Order summary */
+  .pm-summary{
+    background:rgba(10,6,5,.5);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:4px 16px;
+    margin-bottom:20px;
+  }
+  .pms-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 0;
+    border-bottom:1px dashed rgba(212,165,72,.14);
+    font-size:13px;color:var(--cream);
+  }
+  .pms-row:last-child{border-bottom:0}
+  .pms-row span:first-child{
+    font-family:'Cinzel',serif;font-size:10px;letter-spacing:.24em;
+    color:var(--gold);text-transform:uppercase;
+  }
+  .pm-txn{font-family:'Courier New',monospace;color:var(--gold-bright);font-size:12px}
+  .pms-total span:last-child{
+    font-family:'Cinzel',serif;font-weight:800;font-size:22px;
+    color:var(--gold-bright);
+  }
+
+  /* Method-specific instructions */
+  .pm-method{display:none;margin-bottom:20px}
+  .pm-badge{
+    display:inline-block;
+    font-family:'Cinzel',serif;letter-spacing:.28em;font-size:10px;
+    padding:5px 14px;border:1px solid var(--gold);border-radius:999px;
+    color:var(--gold-bright);margin-bottom:12px;text-transform:uppercase;
+  }
+  .pm-instr{
+    font-size:13px;color:var(--cream);line-height:1.55;
+    margin:0 0 14px;
+  }
+  .pm-txn-inline{
+    font-family:'Courier New',monospace;color:var(--gold-bright);
+    font-size:12px;padding:1px 5px;
+    background:rgba(212,165,72,.08);border-radius:3px;
+  }
+  .pm-pay-btn{
+    display:block;text-align:center;
+    padding:14px 18px;
+    background:linear-gradient(180deg,#f4d47c,#d4a548);
+    color:#2a1a08;font-weight:700;
+    font-family:'Inter',sans-serif;font-size:14px;
+    letter-spacing:.08em;text-decoration:none;border-radius:8px;
+    box-shadow:0 4px 16px rgba(212,165,72,.3);
+    transition:all .15s;
+  }
+  .pm-pay-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .pm-pay-btn-alt{margin-top:12px}
+
+  .pm-zelle{
+    display:flex;align-items:center;gap:12px;
+    padding:14px 16px;margin-bottom:12px;
+    background:rgba(164,22,42,.08);border-radius:8px;
+    border:1px solid rgba(164,22,42,.2);
+  }
+  .pm-zelle > div:first-child{flex:1}
+  .pm-z-lbl{
+    display:block;font-family:'Cinzel',serif;font-size:9px;
+    letter-spacing:.24em;color:var(--gold);margin-bottom:3px;text-transform:uppercase;
+  }
+  .pm-z-addr{
+    display:block;font-family:'Inter',sans-serif;font-size:14px;
+    color:var(--cream);font-weight:500;word-break:break-all;
+  }
+  .pm-copy{
+    padding:8px 14px;background:transparent;color:var(--gold);
+    border:1px solid var(--gold);border-radius:4px;
+    cursor:pointer;font-size:11px;letter-spacing:.14em;
+    font-family:'Cinzel',serif;text-transform:uppercase;
+    flex-shrink:0;
+  }
+  .pm-copy:hover{background:rgba(212,165,72,.12)}
+
+  /* Actions */
+  .pm-actions{
+    display:grid;grid-template-columns:1fr 1.6fr;gap:10px;
+    margin-top:8px;
+  }
+  .pm-confirm{
+    background:linear-gradient(180deg, #3aa04c, #227530);
+    color:#fff;border:1px solid #4bbc5c;
+    box-shadow:0 0 20px rgba(58,160,76,.35);
+  }
+  .pm-confirm:hover{filter:brightness(1.1)}
+
+  .pm-fine{
+    margin:16px 0 0;padding:12px;
+    background:rgba(10,6,5,.5);border-radius:6px;
+    font-size:11px;color:var(--muted);line-height:1.5;
+    text-align:center;font-style:italic;
+  }
+
   .toast{
     position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
     padding:10px 20px;background:rgba(10,6,5,.95);
@@ -794,6 +963,15 @@
       <div class="time">8:00 PM — 1:00 AM</div>
     </div>
     <div><span class="attire-pill">All Black Attire · Formal</span></div>
+    <div class="header-countdown" aria-label="Countdown to the gala">
+      <p class="hc-label">Countdown to the Gala</p>
+      <div class="hc-grid">
+        <div class="hc-cell"><div class="hc-n cd-days">—</div><div class="hc-l">Days</div></div>
+        <div class="hc-cell"><div class="hc-n cd-hours">—</div><div class="hc-l">Hours</div></div>
+        <div class="hc-cell"><div class="hc-n cd-mins">—</div><div class="hc-l">Minutes</div></div>
+        <div class="hc-cell"><div class="hc-n cd-secs">—</div><div class="hc-l">Seconds</div></div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -962,6 +1140,62 @@
   </aside>
 </main>
 
+<!-- ═══════════════════════════════════════════════════════════════
+     PAYMENT CONFIRMATION MODAL — appears after Complete Purchase.
+     User completes payment externally, then confirms here. Only then
+     is the QR ticket generated and the row logged to the Sheet.
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="overlay pay-overlay" id="pay-overlay">
+  <div class="pay-shell">
+    <div class="pay-head">
+      <p class="pm-eyebrow">Step 2 of 2</p>
+      <h2 class="pm-title">Complete Your Payment</h2>
+      <p class="pm-sub">Send payment using the method below, then confirm to receive your QR ticket.</p>
+    </div>
+
+    <div class="pm-summary">
+      <div class="pms-row"><span>Attendee</span><span id="pm-name">—</span></div>
+      <div class="pms-row"><span>Ticket</span><span id="pm-type">—</span></div>
+      <div class="pms-row"><span>Reference</span><span class="pm-txn" id="pm-txn">—</span></div>
+      <div class="pms-row pms-total"><span>Total Due</span><span id="pm-total">—</span></div>
+    </div>
+
+    <!-- PayPal instructions -->
+    <div class="pm-method" id="pm-method-paypal">
+      <div class="pm-badge">PayPal</div>
+      <p class="pm-instr">Tap the button to pay the total shown above. Include your reference (<span class="pm-txn-inline" id="pm-txn-2">—</span>) in the note if PayPal asks. Return here after payment completes.</p>
+      <a class="pm-pay-btn" href="https://paypal.me/cabaretunited" target="_blank" rel="noopener" onclick="markPaymentStarted()">
+        Pay with PayPal →
+      </a>
+    </div>
+
+    <!-- Zelle instructions -->
+    <div class="pm-method" id="pm-method-zelle">
+      <div class="pm-badge">Zelle</div>
+      <p class="pm-instr">Send the total to the address below. Include your reference (<span class="pm-txn-inline" id="pm-txn-3">—</span>) in the memo so we can match it.</p>
+      <div class="pm-zelle">
+        <div>
+          <span class="pm-z-lbl">Send Zelle to</span>
+          <span class="pm-z-addr">payments@cabaretunited.com</span>
+        </div>
+        <button type="button" class="pm-copy" onclick="copyPmZelle()">Copy</button>
+      </div>
+      <a class="pm-pay-btn pm-pay-btn-alt" href="https://enroll.zellepay.com/qr-codes?data=payments@cabaretunited.com" target="_blank" rel="noopener">
+        Open Zelle →
+      </a>
+    </div>
+
+    <div class="pm-actions">
+      <button class="btn-secondary" onclick="cancelPayment()">Cancel</button>
+      <button class="btn-primary pm-confirm" onclick="confirmPayment()">
+        ✓ I've Completed Payment
+      </button>
+    </div>
+
+    <p class="pm-fine">Only tap "I've Completed Payment" after your PayPal or Zelle payment has gone through. Your QR ticket is generated at that point.</p>
+  </div>
+</div>
+
 <!-- Ticket overlay -->
 <div class="overlay" id="overlay">
   <div class="ticket-shell">
@@ -1032,9 +1266,9 @@
         <p class="c-greeting" id="c-greeting">See you on the red carpet.</p>
 
         <div class="countdown" id="countdown">
-          <div class="cd-cell"><div class="cd-n" id="cd-days">—</div><div class="cd-l">Days</div></div>
-          <div class="cd-cell"><div class="cd-n" id="cd-hours">—</div><div class="cd-l">Hours</div></div>
-          <div class="cd-cell"><div class="cd-n" id="cd-mins">—</div><div class="cd-l">Minutes</div></div>
+          <div class="cd-cell"><div class="cd-n cd-days">—</div><div class="cd-l">Days</div></div>
+          <div class="cd-cell"><div class="cd-n cd-hours">—</div><div class="cd-l">Hours</div></div>
+          <div class="cd-cell"><div class="cd-n cd-mins">—</div><div class="cd-l">Minutes</div></div>
         </div>
 
         <div class="c-details">
@@ -1145,7 +1379,10 @@
     return `CU-${stamp}-${rand}`;
   }
 
-  // ————— Submit —————
+  // Holds the staged order until payment is confirmed
+  let pendingOrder = null;
+
+  // ————— Step 1: validate form, stage order, open payment modal —————
   function submitPurchase(){
     const name = document.getElementById('attendee-name').value.trim();
     const email = document.getElementById('attendee-email').value.trim();
@@ -1159,13 +1396,37 @@
     const txnId = makeTxnId();
     const total = totalEl.textContent;
 
+    pendingOrder = {
+      name, email, phone, chosen, qty, method, txnId, total,
+      promo: document.getElementById('promo').value.trim()
+    };
+
+    // Fill payment modal with order summary + method-specific instructions
+    document.getElementById('pm-name').textContent = name;
+    document.getElementById('pm-type').textContent = chosen.dataset.name + ' × ' + qty;
+    document.getElementById('pm-total').textContent = total;
+    document.getElementById('pm-txn').textContent = txnId;
+    document.getElementById('pm-txn-2').textContent = txnId;
+    document.getElementById('pm-txn-3').textContent = txnId;
+
+    document.querySelectorAll('.pm-method').forEach(el => el.style.display = 'none');
+    document.getElementById('pm-method-' + method).style.display = 'block';
+
+    document.getElementById('pay-overlay').classList.add('active');
+  }
+
+  // ————— Step 2: user confirms payment → generate QR, log to sheet, show ticket —————
+  function confirmPayment(){
+    if(!pendingOrder) return;
+    const {name, email, phone, chosen, qty, method, txnId, total, promo} = pendingOrder;
+
     // Populate ticket
     document.getElementById('tk-name').textContent = name;
     document.getElementById('tk-type').textContent = chosen.dataset.name;
     document.getElementById('tk-qty').textContent = qty + (qty>1 ? ' Tickets' : ' Ticket');
     document.getElementById('tk-id').textContent = txnId;
 
-    // Build the record — this is what gets sent to the sheet + encoded in the QR
+    // Build the record with confirmed status
     const record = {
       timestamp: new Date().toISOString(),
       transactionId: txnId,
@@ -1177,15 +1438,15 @@
       unitPrice: chosen.dataset.price,
       totalAmount: total,
       paymentMethod: method,
-      promoCode: document.getElementById('promo').value.trim(),
+      promoCode: promo,
       eventDate: "2026-12-19",
       eventTime: "20:00",
       venue: "Gran Centurion, Clark NJ",
-      status: method === "zelle" ? "awaiting-zelle" : "paid"
+      status: "paid-confirmed"
     };
     lastRecord = record;
 
-    // Fire the sheet log (non-blocking — ticket generates regardless)
+    // Log to sheet — only happens after payment is confirmed
     const statusEl = document.getElementById('sync-status');
     statusEl.classList.remove('hidden');
     statusEl.textContent = 'Syncing…';
@@ -1203,7 +1464,7 @@
       }
     });
 
-    // QR encodes a compact ticket payload (not the full sheet record)
+    // Generate QR ticket
     const qrPayload = JSON.stringify({
       event: "Cabaret United Holiday Gala 2026",
       txn: txnId,
@@ -1226,7 +1487,28 @@
       correctLevel: QRCode.CorrectLevel.H
     });
 
+    // Close payment modal, open ticket
+    document.getElementById('pay-overlay').classList.remove('active');
     document.getElementById('overlay').classList.add('active');
+    pendingOrder = null;
+  }
+
+  function cancelPayment(){
+    document.getElementById('pay-overlay').classList.remove('active');
+    pendingOrder = null;
+  }
+
+  function copyPmZelle(){
+    navigator.clipboard?.writeText('payments@cabaretunited.com').then(() => toast('Zelle address copied'));
+  }
+
+  // Visual cue on PayPal button — dims it after tap so user knows to come back
+  function markPaymentStarted(){
+    const btn = document.querySelector('#pm-method-paypal .pm-pay-btn');
+    if(btn){
+      btn.textContent = '✓ Opened PayPal — come back after paying';
+      btn.style.opacity = '.7';
+    }
   }
 
   // ————— Download last submission as CSV —————
@@ -1311,28 +1593,34 @@
     if(e.target.id === 'confirm-overlay') hideConfirmation();
   });
 
-  // Countdown
+  // Countdown — updates every element with the .cd-days/.cd-hours/.cd-mins/.cd-secs classes
   let cdInterval = null;
   function startCountdown(){
-    if(cdInterval) clearInterval(cdInterval);
+    if(cdInterval) return; // already running
     tickCountdown();
-    cdInterval = setInterval(tickCountdown, 60000);
+    cdInterval = setInterval(tickCountdown, 1000);
+  }
+  function setAll(sel, val){
+    document.querySelectorAll(sel).forEach(el => el.textContent = val);
   }
   function tickCountdown(){
     const now = new Date();
     let diff = EVENT_DATE - now;
     if(diff < 0){
-      document.getElementById('cd-days').textContent = 'Live';
-      document.getElementById('cd-hours').textContent = 'Now';
-      document.getElementById('cd-mins').textContent = '—';
+      setAll('.cd-days','Live');
+      setAll('.cd-hours','Now');
+      setAll('.cd-mins','—');
+      setAll('.cd-secs','—');
       return;
     }
     const days = Math.floor(diff / 86400000); diff -= days * 86400000;
     const hours = Math.floor(diff / 3600000); diff -= hours * 3600000;
-    const mins = Math.floor(diff / 60000);
-    document.getElementById('cd-days').textContent = days;
-    document.getElementById('cd-hours').textContent = hours;
-    document.getElementById('cd-mins').textContent = mins;
+    const mins = Math.floor(diff / 60000); diff -= mins * 60000;
+    const secs = Math.floor(diff / 1000);
+    setAll('.cd-days', days);
+    setAll('.cd-hours', String(hours).padStart(2,'0'));
+    setAll('.cd-mins', String(mins).padStart(2,'0'));
+    setAll('.cd-secs', String(secs).padStart(2,'0'));
   }
 
   // Share
@@ -1382,6 +1670,7 @@
 
   // init
   recalc();
+  startCountdown();
 </script>
 
 </body>
